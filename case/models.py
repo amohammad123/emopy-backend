@@ -19,5 +19,5 @@ class UserCase(BaseModel, BaseModelDate):
         ordering = ['-create_date']
 
     def __str__(self):
-        return f'{self.user} // {self.title}'
+        return f'{self.user} ==> {self.title}'
 

@@ -1,5 +1,5 @@
 from django.db import models
-from .time import time_now
+from .time import time_now, get_shamsi
 import uuid
 
 
@@ -22,11 +22,20 @@ class BaseModel(models.Model):
 
 
 class BaseModelDate(models.Model):
-    day = models.SmallIntegerField(verbose_name='روز')
+    day = models.SmallIntegerField(verbose_name='روز', default=int(get_shamsi().get('day')))
 
-    month = models.SmallIntegerField(verbose_name='ماه')
+    month = models.SmallIntegerField(verbose_name='ماه', default=int(get_shamsi().get('month')))
 
-    year = models.SmallIntegerField(verbose_name='سال')
+    year = models.SmallIntegerField(verbose_name='سال', default=int(get_shamsi().get('year')))
+
+    detail = models.JSONField(verbose_name='جزئیات', blank=True, null=True)
+
+    stamp_date = models.PositiveBigIntegerField(default=time_now, verbose_name='تاریخ تایم استمپ')
 
     class Meta:
         abstract = True
+
+    def save(self, *args, **kwargs):
+        self.detail = get_shamsi().get('time')
+        return super(BaseModelDate, self).save(*args, **kwargs)
+

@@ -17,7 +17,7 @@ class User(BaseModel, AbstractUser):
         ordering = ['-create_date']
 
     def __str__(self):
-        return f'{self.first_name} {self.last_name}'
+        return f'{self.username}'
 
 
 class PhoneCode(BaseModel):

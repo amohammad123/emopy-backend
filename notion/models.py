@@ -9,7 +9,7 @@ class UserNotion(BaseModel, BaseModelDate):
     explanation = models.TextField(verbose_name='توضیحات')
     rate = models.PositiveSmallIntegerField(default=5, verbose_name='امتیاز', help_text='از 1 تا 10')
     event = models.ForeignKey(to='event.Event', on_delete=models.CASCADE, verbose_name='رویداد',
-                              related_name='cases',
+                              related_name='notions',
                               blank=True, null=True)
 
     class Meta:
@@ -19,4 +19,4 @@ class UserNotion(BaseModel, BaseModelDate):
         ordering = ['-create_date']
 
     def __str__(self):
-        return f'{self.user} // {self.title}'
+        return f'{self.user} ==> {self.title}'
