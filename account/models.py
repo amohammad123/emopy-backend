@@ -21,7 +21,7 @@ class User(BaseModel, AbstractUser):
 
 
 class PhoneCode(BaseModel):
-    user = models.OneToOneField(to=User, on_delete=models.CASCADE, verbose_name='otp')
+    user = models.OneToOneField(to=User, on_delete=models.CASCADE, verbose_name='کاربر')
     is_active = models.BooleanField(default=False)
     expire_date = models.PositiveBigIntegerField()
     code = models.CharField(max_length=5, editable=False)
@@ -32,7 +32,7 @@ class PhoneCode(BaseModel):
         db_table = 'phone_code'
 
     def __str__(self):
-        return f'کد تایید : {self.code}'
+        return f'USER: {self.user} ==> {self.code}'
 
     def save(self, *args, **kwargs):
         if not self.code:
