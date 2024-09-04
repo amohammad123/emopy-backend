@@ -1,14 +1,13 @@
-from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.request import Request
-from rest_framework import status, permissions, generics
+from rest_framework import status, permissions, generics, views
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from .models import *
 from .serializers import *
 
 
-class SendCode(APIView):
+class SendCode(views.APIView):
     permission_classes = [permissions.AllowAny]
 
     def post(self, request: Request) -> Response:
@@ -42,7 +41,7 @@ class SendCode(APIView):
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-class CheckCode(APIView):
+class CheckCode(views.APIView):
     permission_classes = [permissions.AllowAny]
 
     def post(self, request: Request) -> Response:
