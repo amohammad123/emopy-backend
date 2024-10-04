@@ -42,3 +42,16 @@ class PhoneCode(BaseModel):
             self.expire_date = time_now() + 20
         return super(PhoneCode, self).save(*args, **kwargs)
 
+
+class UserTherapist(BaseModel):
+    user = models.ForeignKey(to=User, on_delete=models.CASCADE, verbose_name='کاربر', related_name='therapists')
+    full_name = models.CharField(max_length=50, verbose_name='اسم کامل')
+    image = models.ImageField(verbose_name='تصویر', upload_to='user_therapist_images', null=True, blank=True)
+
+    class Meta:
+        verbose_name = 'درمانگر کاربر'
+        verbose_name_plural = 'درمانگران کاربران'
+        db_table = 'user_therapist'
+
+    def __str__(self):
+        return f'USER: {self.user} ==> {self.full_name}'

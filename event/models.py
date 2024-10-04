@@ -19,6 +19,8 @@ class Event(BaseModel, BaseModelDate):
     is_completed = models.BooleanField(default=True, verbose_name='کامل شده')
     image = models.ImageField(upload_to='event_images', verbose_name='تصویر', blank=True, null=True)
     brief_explanation = models.TextField(verbose_name='توضیح مختصر', blank=True, null=True)
+    mood = models.ForeignKey(to='emotion.Mood', on_delete=models.CASCADE, related_name='events',
+                             verbose_name='مود')
 
     class Meta:
         verbose_name = 'رویداد'
@@ -28,4 +30,3 @@ class Event(BaseModel, BaseModelDate):
 
     def __str__(self):
         return f'{self.user}'
-

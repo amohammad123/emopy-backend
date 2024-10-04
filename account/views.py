@@ -68,6 +68,17 @@ class CheckCode(views.APIView):
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
+class RefreshTokenView(generics.GenericAPIView):
+    def post(self, request):
+        refresh_token = request.data.get('refresh')
+        if not refresh_token:
+            return Response({'message': 'خطا در دریافت توکن'}, status=status.HTTP_400_BAD_REQUEST)
+        refresh = RefreshToken(refresh_token)
+        access = refresh.access_token
+
+        return Response({'access': access}, status=status.HTTP_200_OK)
+
+
 class UserDetails(generics.RetrieveUpdateAPIView):
     serializer_class = UserDetailSerializer
     queryset = User.objects.filter(is_deleted=False)
@@ -79,3 +90,5 @@ class UserDetails(generics.RetrieveUpdateAPIView):
     def get_serializer(self, *args, **kwargs):
         kwargs['partial'] = True
         return super().get_serializer(*args, **kwargs)
+
+

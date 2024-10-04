@@ -3,3 +3,4 @@ from .models import *
 
 admin.site.register(Emotion)
 admin.site.register(UserEmotion)
+admin.site.register(Mood)

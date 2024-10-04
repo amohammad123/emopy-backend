@@ -36,3 +36,20 @@ class UserEmotion(BaseModel, BaseModelDate):
 
     def __str__(self):
         return f'{self.user}'
+
+
+class Mood(BaseModel):
+    title = models.CharField(max_length=50, verbose_name='عنوان')
+    description = models.TextField(verbose_name='توضیحات', blank=True, null=True)
+    image = models.ImageField(verbose_name='تصویر', upload_to='mood', null=True, blank=True)
+    color = models.CharField(max_length=10, blank=True, null=True, verbose_name='کد رنگ')
+    sort = models.PositiveSmallIntegerField()
+
+    class Meta:
+        verbose_name = 'مود'
+        verbose_name_plural = 'مودها'
+        db_table = 'mood'
+        ordering = ['-create_date']
+
+    def __str__(self):
+        return f'{self.user}'

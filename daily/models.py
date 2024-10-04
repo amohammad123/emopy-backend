@@ -35,10 +35,12 @@ class DailyReport(BaseModel, BaseModelDate):
                                                  help_text='به دقیقه')
     sleep_rate = models.PositiveSmallIntegerField(default=5, verbose_name='امتیاز کیفیت خواب', help_text='از 1 تا 10')
 
-    mood = models.TextField(blank=True, null=True, verbose_name='مود')
+    # mood = models.TextField(blank=True, null=True, verbose_name='مود')
     functional_rate = models.PositiveSmallIntegerField(default=5, verbose_name='امتیاز عملکرد', help_text='از 1 تا 10')
     is_rest = models.BooleanField(default=False, verbose_name='استراحت')
     emotion_explanation = models.TextField(verbose_name='احساسات روز', blank=True, null=True)
+    mood = models.ForeignKey(to='emotion.Mood', on_delete=models.CASCADE, related_name='daily_reports',
+                             verbose_name='مود')
 
     class Meta:
         verbose_name = 'گزارش روزانه'
